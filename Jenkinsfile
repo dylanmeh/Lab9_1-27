@@ -25,7 +25,7 @@ spec:
                 DEPLOY_KEY = usernameColonPassword('deployKey')
             }
             steps {
-                sh 'echo "$DEPLOY_KEY"'
+                sh 'curl -u "$DEPLOY_KEY" -XPOST https://webhooks.example.com/promote'
             }
         }        
     }
