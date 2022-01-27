@@ -21,7 +21,7 @@ spec:
     stages {
         stage('injecting creds securely into script') {
             steps {
-                sh('curl -u ${CREDS_USR}:${CREDS_PSW} https://example.com')
+                sh("curl -u ${CREDS_USR}:${CREDS_PSW} https://example.com")
             }
         }        
     }
