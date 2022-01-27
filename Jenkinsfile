@@ -21,11 +21,12 @@ spec:
     }
     stages {
         stage('injecting creds securely into script') {
-            environment {
-                DEPLOY_KEY = usernameColonPassword('deployKey')
-            }
             steps {
-                sh('curl -u "$DEPLOY_KEY" https://example.com')
+                script {
+                    withCredentials([usernameColonPassword(credentialsId: 'deployKey', variable: 'DEPLOY_KEY')]) {
+                        sh('curl -u "$DEPLOY_KEY" https://example.com')
+                    }
+                }    
             }
         }        
     }
