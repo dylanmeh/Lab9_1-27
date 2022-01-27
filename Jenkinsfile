@@ -15,13 +15,10 @@ spec:
         defaultContainer 'build'
         }
     }
-    environment {
-        CREDS = credentials('creds-id')
-    }
     stages {
         stage('injecting creds securely into script') {
             steps {
-                sh('curl -u ${CREDS_USR}:${CREDS_PSW} https://example.com')
+                sh 'echo ${params.CREDS_PARAMETER}'
             }
         }        
     }
