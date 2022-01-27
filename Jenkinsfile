@@ -15,6 +15,9 @@ spec:
         defaultContainer 'build'
         }
     }
+    parameters {
+        credentials(name: CREDS_PARAMETER, description: 'A user to build with', defaultValue: '', credentialType: "Username with password", required: true)
+    }
     stages {
         stage('injecting creds securely into script') {
             steps {
