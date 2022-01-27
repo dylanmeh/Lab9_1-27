@@ -16,12 +16,20 @@ spec:
         }
     }
     parameters {
-        credentials(name: CREDS_PARAMETER, description: 'A user to build with', defaultValue: '', credentialType: "Username with password", required: true)
+        credentials(credentialType:
+'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl'
+                    defaultValue: '',
+                    description: 'Production deployment key',
+                    name: 'deployKey',
+                    required: true)
     }
     stages {
         stage('injecting creds securely into script') {
+            environment {
+                DEPLOY_KEY = usernameColonPassword('deployKey')
+            }
             steps {
-                sh 'echo ${params.CREDS_PARAMETER}'
+                sh 'echo "$DEPLOY_KEY"'
             }
         }        
     }
