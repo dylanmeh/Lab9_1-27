@@ -17,11 +17,7 @@ spec:
     }
     parameters {
         credentials(credentialType:
-'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl'
-                    defaultValue: '',
-                    description: 'Production deployment key',
-                    name: 'deployKey',
-                    required: true)
+'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl', defaultValue: '', description: 'Production deployment key', name: 'deployKey', required: true)
     }
     stages {
         stage('injecting creds securely into script') {
