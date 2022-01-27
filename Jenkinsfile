@@ -15,25 +15,13 @@ spec:
         defaultContainer 'build'
         }
     }
-    parameters {
-        credentials(
-            credentialType: 'com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl',
-            defaultValue: '',
-            description: 'The crednetials needed to deploy'
-            name: 'deployCredentialsId',
-            required: true
-        )
+    environment {
+        CREDS = credentials('creds-id')
     }
     stages {
-        stage('injecting creds as build time parameter') {
+        stage('injecting creds securely into script') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: '${deployCredentialsId}',
-                    usernameVariable: 'DEPLOY_USERNAME',
-                    passwordVariable: 'DEPLOY_PASSWORD',
-                )]) {
-                    sh 'echo "${DEPLOY_USERNAME}"'
-                }
+                sh('curl -u ${CREDS_USR}:${CREDS_PSW} https://example.com')
             }
         }        
     }
